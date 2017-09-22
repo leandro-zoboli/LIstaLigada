@@ -13,7 +13,7 @@ public class Lista {
     public static Pessoa criaPessoa() {
 
         Pessoa p = new Pessoa();
-        p.setNome(pedeStr("Informe o nome da pessoa (de 1 a 100 carcteres)", 1, 100));
+        p.setNome(pedeString("Informe o nome da pessoa (de 1 a 100 carcteres)", 1, 100));
         return p;
     }
 
@@ -65,7 +65,7 @@ public class Lista {
     public static void verificaExiste() {
         boolean existe = false;
         Pessoa atual;
-        String nome = pedeStr("Informe o nome da pessoa", 1, 100);
+        String nome = pedeString("Informe o nome da pessoa", 1, 100);
         atual = inicio;
         while (atual != null) {
             if (atual.getNome().equals(nome)) {
@@ -73,7 +73,7 @@ public class Lista {
                 break;
 
             }
-            break;
+            atual = atual.getProximo();
         }
         if (existe) {
             System.out.println("Nome ENCONTRADO na lista!");
@@ -84,19 +84,20 @@ public class Lista {
 
     public static void removeEspecifico() {
         Pessoa atual;
-        String nome = (pedeStr("Informe o nome a ser excluído", 1, 100));
+        String nome = (pedeString("Informe o nome a ser excluído", 1, 100));
         if (nome.equals(inicio.getNome())) {
             removeInicio();
+            System.out.println("'" + nome + "'" + " foi removido com succeso");
         } else if (nome.equals(fim.getNome())) {
             removeFim();
+            System.out.println("'" + nome + "'" + " foi removido com succeso");
         } else {
             atual = inicio;
             while (atual != null) {
                 if (atual.getNome().equals(nome)) {
-                    //ligar o anterior ao próximo de atual
-                    Pessoa anterior = buscarAnterior(atual);
+                    Pessoa anterior = buscaPessoaAnterior(atual);
                     anterior.setProximo(atual.getProximo());
-
+                    System.out.println("'" + nome + "'" + " foi removido com succeso");
                     break;
                 }
                 atual = atual.getProximo();
@@ -108,7 +109,9 @@ public class Lista {
         if (qtd == 0) {
             System.out.println("Lista nula!");
         } else {
+            System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
             inicio = inicio.getProximo();
+
         }
     }
 
@@ -117,6 +120,7 @@ public class Lista {
             System.out.println("Lista nula!");
         } else {
             if (inicio == fim) {
+                System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
                 inicio = null;
                 fim = null;
             } else {
@@ -124,6 +128,7 @@ public class Lista {
                 while (atual != null) {
                     if (atual.getProximo().getProximo() == null) {
                         atual.setProximo(null);
+                        System.out.println("'" + fim.getNome() + "'" + " foi removido com succeso");
                         fim = atual;
                         break;
                     }
@@ -133,7 +138,7 @@ public class Lista {
         }
     }
 
-    public static Pessoa buscarAnterior(Pessoa p) {
+    public static Pessoa buscaPessoaAnterior(Pessoa p) {
         Pessoa ret = null;
         Pessoa atual = inicio;
         while (atual != null) {
@@ -146,6 +151,35 @@ public class Lista {
         return ret;
     }
 
+    public static void listaInicioAteFim() {
+        if (qtd == 0) {
+            System.out.println("Lista nula!");
+        } else {
+            Pessoa atual = inicio;
+            while (atual != null) {
+                System.out.println("-" + atual.getNome());
+                atual = atual.getProximo();
+            }
+        }
+    }
+
+    public static void listaFimAteInicio() {
+        if (qtd == 0) {
+            System.out.println("Lista nula!");
+        } else {
+            Pessoa atual = fim;
+            while (atual != null) {
+                System.out.println("-" + atual.getNome());
+                if (atual != inicio) {
+                    atual = buscaPessoaAnterior(atual);
+                } else {
+                    atual = null;
+                }
+            }
+        }
+
+    }
+
     public static void menu() {
         System.out.println("---------------------------------------------");
         System.out.println("1- Criar lista");
@@ -154,7 +188,12 @@ public class Lista {
         System.out.println("4- Mostrar lista");
         System.out.println("5- Verificar existência de pessoa específica");
         System.out.println("6- Remover pessoa específica");
+        System.out.println("7- Remover a primeira pessoa da lista");
+        System.out.println("8- Remover a ultima pessoa da lista");
+        System.out.println("9- Mostrar lista do início até o fim");
+        System.out.println("10- Mostrar lista do fim até o início");
         System.out.println("0- Sair");
+        System.out.println("---------------------------------------------");
     }
 
     public static int pedeInt(String msg, int min, int max) {
@@ -167,7 +206,7 @@ public class Lista {
                 System.out.println(msg);
                 ret = scan.nextInt();
                 if (ret < min || ret > max) {
-                    System.out.println("Informe um valor de " + min + " a " + max + ".");
+                    System.out.println("Informe um valor de " + min + " a " + max);
                 }
             } catch (Exception e) {
                 erro = true;
@@ -176,7 +215,7 @@ public class Lista {
         return ret;
     }
 
-    public static String pedeStr(String msg, int min, int max) {
+    public static String pedeString(String msg, int min, int max) {
         String ret = "";
         boolean erro;
         do {
@@ -186,7 +225,7 @@ public class Lista {
                 System.out.println(msg);
                 ret = scan.next();
                 if (ret.length() < min || ret.length() > max) {
-                    System.out.println("Informe um literal de " + min + " caracteres a " + max + " caracteres.");
+                    System.out.println("Informe um nome de " + min + " a " + max + " caracteres");
                 }
             } catch (Exception e) {
                 erro = true;
@@ -199,7 +238,7 @@ public class Lista {
         int resposta = 0;
         do {
             menu();
-            resposta = pedeInt("Informe a opção desejada:", 0, 7);
+            resposta = pedeInt("Informe a opção desejada:", 0, 11);
             switch (resposta) {
                 case 1:
                     criaLista();
@@ -218,6 +257,18 @@ public class Lista {
                     break;
                 case 6:
                     removeEspecifico();
+                    break;
+                case 7:
+                    removeInicio();
+                    break;
+                case 8:
+                    removeFim();
+                    break;
+                case 9:
+                    listaInicioAteFim();
+                    break;
+                case 10:
+                    listaFimAteInicio();
                     break;
             }
         } while (resposta != 0);
