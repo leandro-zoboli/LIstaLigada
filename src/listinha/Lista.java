@@ -34,7 +34,8 @@ public class Lista {
         } else {
             Pessoa p = criaPessoa();
             p.setProximo(inicio);
-            inicio = p;
+            inicio = p; 
+            
         }
 
     }
@@ -48,6 +49,7 @@ public class Lista {
             fim.setProximo(p);
             fim = p;
         }
+        
     }
 
     public static void listaLista() {
@@ -63,6 +65,10 @@ public class Lista {
     }
 
     public static void verificaExiste() {
+        if (qtd == 0) {
+            System.out.println("Lista nula! Criando nova lista");
+            criaLista();
+        }
         boolean existe = false;
         Pessoa atual;
         String nome = pedeString("Informe o nome da pessoa", 1, 100);
@@ -83,14 +89,16 @@ public class Lista {
     }
 
     public static void removeEspecifico() {
+        if (qtd == 0) {
+            System.out.println("Lista nula! Criando nova lista");
+            criaLista();
+        }
         Pessoa atual;
         String nome = (pedeString("Informe o nome a ser excluído", 1, 100));
         if (nome.equals(inicio.getNome())) {
             removeInicio();
-            System.out.println("'" + nome + "'" + " foi removido com succeso");
         } else if (nome.equals(fim.getNome())) {
             removeFim();
-            System.out.println("'" + nome + "'" + " foi removido com succeso");
         } else {
             atual = inicio;
             while (atual != null) {
@@ -179,6 +187,8 @@ public class Lista {
         }
 
     }
+    
+   
 
     public static void menu() {
         System.out.println("---------------------------------------------");
