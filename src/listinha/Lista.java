@@ -37,8 +37,8 @@ public class Lista {
             //pede o nome de uma pessoa e a coloca no inicio.
             Pessoa p = criaPessoa();
             p.setProximo(inicio);
-            inicio = p; 
-            
+            inicio = p;
+
         }
 
     }
@@ -54,7 +54,7 @@ public class Lista {
             fim.setProximo(p);
             fim = p;
         }
-        
+
     }
 
     public static void listaLista() {
@@ -114,7 +114,7 @@ public class Lista {
         //se o nome for o inicio da lista, executa o metodo removeInicio().
         if (nome.equals(inicio.getNome())) {
             removeInicio();
-        //se o nome for o final da lista, executa o método removeFim().    
+            //se o nome for o final da lista, executa o método removeFim().    
         } else if (nome.equals(fim.getNome())) {
             removeFim();
         } else {
@@ -140,7 +140,7 @@ public class Lista {
         } else {
             //retira o inicio da lista.
             System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
-            qtd = qtd-1;
+
             inicio = inicio.getProximo();
 
         }
@@ -154,7 +154,7 @@ public class Lista {
             //se tiver somente um objeto na lista, o exclui do inicio e do final.
             if (inicio == fim) {
                 System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
-                qtd = qtd-1;
+
                 inicio = null;
                 fim = null;
             } else {
@@ -165,7 +165,8 @@ public class Lista {
                     if (atual.getProximo().getProximo() == null) {
                         atual.setProximo(null);
                         System.out.println("'" + fim.getNome() + "'" + " foi removido com succeso");
-                        qtd = qtd-1;
+1
+        
                         fim = atual;
                         break;
                     }
@@ -221,8 +222,6 @@ public class Lista {
         }
 
     }
-    
-   
 
     public static void menu() {
         //menu usado no sistema.
