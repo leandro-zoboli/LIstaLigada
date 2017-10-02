@@ -11,13 +11,14 @@ public class Lista {
     static Scanner tec = new Scanner(System.in);
 
     public static Pessoa criaPessoa() {
-
+        //pede o nome da pessoa.
         Pessoa p = new Pessoa();
         p.setNome(pedeString("Informe o nome da pessoa (de 1 a 100 carcteres)", 1, 100));
         return p;
     }
 
     public static void criaLista() {
+        //vai pedir o nome de uma pessoa e o coloca na lista como inicio e fim.
         Pessoa p = new Pessoa();
         inicio = criaPessoa();
         fim = inicio;
@@ -28,10 +29,12 @@ public class Lista {
     }
 
     public static void insereInicio() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("Lista nula! Criando nova lista.");
             criaLista();
         } else {
+            //pede o nome de uma pessoa e a coloca no inicio.
             Pessoa p = criaPessoa();
             p.setProximo(inicio);
             inicio = p; 
@@ -41,10 +44,12 @@ public class Lista {
     }
 
     public static void insereFim() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("lista nula! Criando nova lista.");
             criaLista();
         } else {
+            //pede o nome da pessoa e a coloca no final da lista.
             Pessoa p = criaPessoa();
             fim.setProximo(p);
             fim = p;
@@ -53,9 +58,13 @@ public class Lista {
     }
 
     public static void listaLista() {
+        //verifica se existe uma lista (se não, irá informar uma mensagem de aviso).
         if (qtd == 0) {
             System.out.println("lista nula!");
         } else {
+            //irá percorrer a lista até o atual ser nulo (o fim da lista);
+            //mostrando o nome de cada objeto percorrido e após isso; 
+            //atribuirá ao atual o proximo.
             Pessoa atual = inicio;
             while (atual != null) {
                 System.out.println("-" + atual.getNome());
@@ -65,14 +74,18 @@ public class Lista {
     }
 
     public static void verificaExiste() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("Lista nula! Criando nova lista");
             criaLista();
         }
+        //irá pedir o nome da pessoa a ser pesquisada na lista.
         boolean existe = false;
         Pessoa atual;
         String nome = pedeString("Informe o nome da pessoa", 1, 100);
         atual = inicio;
+        //percorre toda lista para tentar achar algum objeto com o mesmo nome; 
+        //que o informado pelo usuário.
         while (atual != null) {
             if (atual.getNome().equals(nome)) {
                 existe = true;
@@ -81,6 +94,7 @@ public class Lista {
             }
             atual = atual.getProximo();
         }
+        //if's para verificação se foi ou nçao encontrado o nome na lista.
         if (existe) {
             System.out.println("Nome ENCONTRADO na lista!");
         } else {
@@ -89,17 +103,23 @@ public class Lista {
     }
 
     public static void removeEspecifico() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("Lista nula! Criando nova lista");
             criaLista();
         }
+        //pede o nome a ser excluido da lista
         Pessoa atual;
         String nome = (pedeString("Informe o nome a ser excluído", 1, 100));
+        //se o nome for o inicio da lista, executa o metodo removeInicio().
         if (nome.equals(inicio.getNome())) {
             removeInicio();
+        //se o nome for o final da lista, executa o método removeFim().    
         } else if (nome.equals(fim.getNome())) {
             removeFim();
         } else {
+            //se nenhum dos casos acima é aplicado, irá percorrer a lista até;
+            //achar o nome a ser excluído
             atual = inicio;
             while (atual != null) {
                 if (atual.getNome().equals(nome)) {
@@ -114,29 +134,38 @@ public class Lista {
     }
 
     public static void removeInicio() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("Lista nula!");
         } else {
+            //retira o inicio da lista.
             System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
+            qtd = qtd-1;
             inicio = inicio.getProximo();
 
         }
     }
 
     public static void removeFim() {
+        //verifica se existe uma lista (se não irá ser criada uma nova lista).
         if (qtd == 0) {
             System.out.println("Lista nula!");
         } else {
+            //se tiver somente um objeto na lista, o exclui do inicio e do final.
             if (inicio == fim) {
                 System.out.println("'" + inicio.getNome() + "'" + " foi removido com succeso");
+                qtd = qtd-1;
                 inicio = null;
                 fim = null;
             } else {
+                //se a lista tiver mais objetos, irá ser achado o final;
+                //para posteriormente ser feita a exclusão.
                 Pessoa atual = inicio;
                 while (atual != null) {
                     if (atual.getProximo().getProximo() == null) {
                         atual.setProximo(null);
                         System.out.println("'" + fim.getNome() + "'" + " foi removido com succeso");
+                        qtd = qtd-1;
                         fim = atual;
                         break;
                     }
@@ -147,6 +176,7 @@ public class Lista {
     }
 
     public static Pessoa buscaPessoaAnterior(Pessoa p) {
+        //retorna a pessoa anterior da atual;
         Pessoa ret = null;
         Pessoa atual = inicio;
         while (atual != null) {
@@ -160,9 +190,11 @@ public class Lista {
     }
 
     public static void listaInicioAteFim() {
+        //verifica se existe uma lista (se não irá será informada uma mensagem de aviso).
         if (qtd == 0) {
             System.out.println("Lista nula!");
         } else {
+            //mostra a lista do inicio até o final (método convencional).
             Pessoa atual = inicio;
             while (atual != null) {
                 System.out.println("-" + atual.getNome());
@@ -172,9 +204,11 @@ public class Lista {
     }
 
     public static void listaFimAteInicio() {
+        //verifica se existe uma lista (se não irá será informada uma mensagem de aviso).
         if (qtd == 0) {
             System.out.println("Lista nula!");
         } else {
+            //atribui a pessoa atual o final da lista e vai buscando a sua anterior.
             Pessoa atual = fim;
             while (atual != null) {
                 System.out.println("-" + atual.getNome());
@@ -191,6 +225,7 @@ public class Lista {
    
 
     public static void menu() {
+        //menu usado no sistema.
         System.out.println("---------------------------------------------");
         System.out.println("1- Criar lista");
         System.out.println("2- Inserir pessoa no início lista");
@@ -207,6 +242,7 @@ public class Lista {
     }
 
     public static int pedeInt(String msg, int min, int max) {
+        //método para retornar um inteiro informado pelo usuário (opções do menu).
         int ret = min - 1;
         boolean erro;
         do {
@@ -226,6 +262,7 @@ public class Lista {
     }
 
     public static String pedeString(String msg, int min, int max) {
+        //método para retornar uma String informada pelo usuário (nome das pessoas).
         String ret = "";
         boolean erro;
         do {
