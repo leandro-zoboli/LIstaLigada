@@ -165,7 +165,7 @@ public class Lista {
                     if (atual.getProximo().getProximo() == null) {
                         atual.setProximo(null);
                         System.out.println("'" + fim.getNome() + "'" + " foi removido com succeso");
-1
+
         
                         fim = atual;
                         break;
